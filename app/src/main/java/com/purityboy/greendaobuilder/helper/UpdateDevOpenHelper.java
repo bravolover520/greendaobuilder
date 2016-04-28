@@ -24,10 +24,7 @@ public class UpdateDevOpenHelper extends DaoMaster.DevOpenHelper{
         //onCreate(db);
         if(oldVersion == 1 && newVersion == 2) {
             Log.i("greenDAO", "Upgrading schema from version " + oldVersion + " to " + newVersion + " by update all tables");
-            boolean ifNotExists = false;
-            //Leave old tables alone and only create ones that didn't exist
-            //in the previous schema
-            NoteDao.createTable(db, ifNotExists);
+            DbMigrationHelper.migrate(db, NoteDao.class);
         } else {
             super.onUpgrade(db, oldVersion, newVersion);
         }

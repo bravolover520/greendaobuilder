@@ -36,9 +36,10 @@ public class GreenDaoActivity extends AppCompatActivity {
 //        DbCore.getInstance().init(GreenDaoActivity.this, "myDb");
 
         Note note = new Note();
-        note.setText("neirong");
-        note.setComment("pinglun");
+        note.setText("内容");
+        note.setComment("评论");
         note.setDate(new Date());
+        note.setAuthor("天涯");
 
         service = DbHelper.getInstance().getNoteService();
         service.save(note);

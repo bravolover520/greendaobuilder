@@ -13,6 +13,7 @@ public class Note {
     private java.util.Date date;
     private Boolean isSync;
     private byte[] bmp;
+    private String author;
 
     public Note() {
     }
@@ -21,13 +22,14 @@ public class Note {
         this.id = id;
     }
 
-    public Note(Long id, String text, String comment, java.util.Date date, Boolean isSync, byte[] bmp) {
+    public Note(Long id, String text, String comment, java.util.Date date, Boolean isSync, byte[] bmp, String author) {
         this.id = id;
         this.text = text;
         this.comment = comment;
         this.date = date;
         this.isSync = isSync;
         this.bmp = bmp;
+        this.author = author;
     }
 
     public Long getId() {
@@ -78,6 +80,14 @@ public class Note {
 
     public void setBmp(byte[] bmp) {
         this.bmp = bmp;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
 }

@@ -29,6 +29,7 @@ public class NoteDao extends AbstractDao<Note, Long> {
         public final static Property Date = new Property(3, java.util.Date.class, "date", false, "DATE");
         public final static Property IsSync = new Property(4, Boolean.class, "isSync", false, "IS_SYNC");
         public final static Property Bmp = new Property(5, byte[].class, "bmp", false, "BMP");
+        public final static Property Author = new Property(6, String.class, "author", false, "AUTHOR");
     };
 
 
@@ -49,7 +50,8 @@ public class NoteDao extends AbstractDao<Note, Long> {
                 "\"COMMENT\" TEXT," + // 2: comment
                 "\"DATE\" INTEGER," + // 3: date
                 "\"IS_SYNC\" INTEGER," + // 4: isSync
-                "\"BMP\" BLOB);"); // 5: bmp
+                "\"BMP\" BLOB," + // 5: bmp
+                "\"AUTHOR\" TEXT);"); // 6: author
     }
 
     /** Drops the underlying database table. */
@@ -88,6 +90,11 @@ public class NoteDao extends AbstractDao<Note, Long> {
         if (bmp != null) {
             stmt.bindBlob(6, bmp);
         }
+ 
+        String author = entity.getAuthor();
+        if (author != null) {
+            stmt.bindString(7, author);
+        }
     }
 
     /** @inheritdoc */
@@ -105,7 +112,8 @@ public class NoteDao extends AbstractDao<Note, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // comment
             cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)), // date
             cursor.isNull(offset + 4) ? null : cursor.getShort(offset + 4) != 0, // isSync
-            cursor.isNull(offset + 5) ? null : cursor.getBlob(offset + 5) // bmp
+            cursor.isNull(offset + 5) ? null : cursor.getBlob(offset + 5), // bmp
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // author
         );
         return entity;
     }
@@ -119,6 +127,7 @@ public class NoteDao extends AbstractDao<Note, Long> {
         entity.setDate(cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)));
         entity.setIsSync(cursor.isNull(offset + 4) ? null : cursor.getShort(offset + 4) != 0);
         entity.setBmp(cursor.isNull(offset + 5) ? null : cursor.getBlob(offset + 5));
+        entity.setAuthor(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     /** @inheritdoc */

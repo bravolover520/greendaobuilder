@@ -4,12 +4,17 @@ import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;
 import de.greenrobot.daogenerator.Schema;
 
+/***
+ * greendao数据库生成工具
+ */
 public class GreenDaoGenerator {
+
+    public static final int CURRENT_DB_VERSION = 2;
 
     public static void main(String[] args) throws Exception {
         // 创建了一个用于添加实体（Entity）的模式（Schema）对象。
         // 两个参数分别代表：数据库版本号与自动生成代码的包路径。
-        Schema schema = new Schema(1, "com.yohov.teaworm.greendao");
+        Schema schema = new Schema(CURRENT_DB_VERSION, "com.yohov.teaworm.greendao");
         //当然，如果你愿意，你也可以分别指定生成的 Bean 与 DAO 类所在的目录(bean和dao分开)，只要如下所示：
 //      Schema schema = new Schema(1, "me.yohov.bean");
 //      schema.setDefaultJavaPackageDao("me.yohov.dao");
@@ -43,6 +48,7 @@ public class GreenDaoGenerator {
         entity.addDateProperty("date");
         entity.addBooleanProperty("isSync");
         entity.addByteArrayProperty("bmp");
+        entity.addStringProperty("author");
 
         //生成一个ContentProvider内容提供器，供其他程序访问数据
 //        entity.addContentProvider().readOnly();
